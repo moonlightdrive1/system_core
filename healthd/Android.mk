@@ -30,7 +30,7 @@ LOCAL_SRC_FILES := \
     BatteryPropertiesRegistrar.cpp \
 
 LOCAL_MODULE := libhealthd_internal
-LOCAL_C_INCLUDES := bootable/recovery
+LOCAL_C_INCLUDES := $(call project-path-for,recovery)
 LOCAL_EXPORT_C_INCLUDE_DIRS := \
     $(LOCAL_PATH) \
     $(LOCAL_PATH)/include \
@@ -105,7 +105,7 @@ ifeq ($(strip $(BOARD_NO_CHARGER_LED)),true)
 LOCAL_CFLAGS += -DNO_CHARGER_LED
 endif
 
-LOCAL_C_INCLUDES := bootable/recovery
+LOCAL_C_INCLUDES := $(call project-path-for,recovery)
 
 LOCAL_STATIC_LIBRARIES := \
     libhealthd_internal \
