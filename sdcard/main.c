@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef __CUTILS_IOSCHED_POLICY_H
-#define __CUTILS_IOSCHED_POLICY_H
+extern int sdcard_main(int argc, char **argv);
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    IoSchedClass_NONE,
-    IoSchedClass_RT,
-    IoSchedClass_BE,
-    IoSchedClass_IDLE,
-} IoSchedClass;
-
-extern int android_set_ioprio(int pid, IoSchedClass clazz, int ioprio);
-extern int android_get_ioprio(int pid, IoSchedClass *clazz, int *ioprio);
-
-extern int android_set_rt_ioprio(int pid, int rt);
-
-#ifdef __cplusplus
+int main(int argc, char **argv) {
+    return sdcard_main(argc, argv);
 }
-#endif
-
-#endif /* __CUTILS_IOSCHED_POLICY_H */ 
