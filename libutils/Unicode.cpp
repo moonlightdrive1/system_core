@@ -449,11 +449,19 @@ ssize_t utf16_to_utf8_length(const char16_t *src, size_t src_len)
         if ((*src & 0xFC00) == 0xD800 && (src + 1) < end
                 && (*(src + 1) & 0xFC00) == 0xDC00) {
             // surrogate pairs are always 4 bytes.
-            ret += 4;
+            char_len = 4;
             src += 2;
         } else {
-            ret += utf32_codepoint_utf8_length((char32_t) *src++);
+            char_len = utf32_codepoint_utf8_length((char32_t)*src++);
         }
+        if (SSIZE_MAX - char_len < ret) {
+            // If this happens, we would overflow the ssize_t type when
+            // returning from this function, so we cannot express how
+            // long this string is in an ssize_t.
+            android_errorWriteLog(0x534e4554, "37723026");
+            return -1;
+        }
+        ret += char_len;    
     }
     return ret;
 }
